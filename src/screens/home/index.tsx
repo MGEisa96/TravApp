@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {View,Text} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Screen, {ScreenTypes} from '../../components/organisms/wrapperScreen';
 import {useThemeStore} from '../../zustand/useThemeStore';
