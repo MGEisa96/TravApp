@@ -1,10 +1,11 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import {RootStack} from './src/navigation';
 import {I18nextProvider} from 'react-i18next';
 import i18n from './src/utils/lang/i18n';
 import {I18nManager} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import BootSplash from 'react-native-bootsplash';
 
 function App(): React.JSX.Element {
   const detectLang = async () => {
@@ -21,8 +22,18 @@ function App(): React.JSX.Element {
     }
   };
 
-  useLayoutEffect(() => {
-    detectLang();
+  useEffect(() => {
+    const init = async () => {
+      // Wait for app to be ready and language detection to complete
+      await detectLang();
+      // Add a small delay to show the splash screen for at least 1 second
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    };
+
+    init().finally(async () => {
+      // await BootSplash.hide({fade: true});
+      console.log('BootSplash has been hidden successfully');
+    });
   }, []);
 
   return (
